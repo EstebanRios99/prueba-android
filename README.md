@@ -17,7 +17,7 @@ El proyecto debe consta de:
 - Actualizar tarea
 - Eliminar tarea
 
-Manual Técnico y de Uso en el siguiente enlace:
+Video de Manual Técnico y de Uso en el siguiente enlace:
 
 # Desarrollo de la aplicación
 
