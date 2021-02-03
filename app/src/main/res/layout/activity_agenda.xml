@@ -7,10 +7,29 @@
     tools:context=".AgendaActivity">
 
     <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints">
+
+        <Button
+            android:id="@+id/btn_logOut"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="4"
+            android:backgroundTint="@color/teal_700"
+            android:text="Cerrar Sesión" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="64dp"
         android:layout_marginEnd="16dp"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
@@ -18,24 +37,42 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/view_email"
+            android:id="@+id/text_user"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:text="Email" />
+            android:layout_height="wrap_content"
+            android:text="User" />
+
+        <EditText
+            android:id="@+id/text_task"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Escriba la tarea"
+            android:inputType="textLongMessage|textPersonName" />
 
         <Space
             android:layout_width="match_parent"
             android:layout_height="10dp" />
 
-        <TextView
-            android:id="@+id/view_proveedor"
+        <EditText
+            android:id="@+id/text_date"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:text="Proveedor" />
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Selección la fecha"
+            android:inputType="date" />
 
         <Space
             android:layout_width="match_parent"
             android:layout_height="10dp" />
+
+        <EditText
+            android:id="@+id/text_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Ingrese la hora"
+            android:inputType="time" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -43,34 +80,17 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/btn_logOut"
-                android:layout_width="wrap_content"
+                android:id="@+id/btn_send_task"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Cerrar Sesión" />
-
+                android:backgroundTint="@color/teal_200"
+                android:text="Registrar tarea" />
         </LinearLayout>
 
-        <EditText
-            android:id="@+id/mensaje"
+        <ListView
+            android:id="@+id/list_tasks"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="Escriba su mensaje"
-            android:inputType="textLongMessage|textPersonName" />
-
-        <Button
-            android:id="@+id/btn_send"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-
-            android:text="Enviar" />
-
-        <TextView
-            android:id="@+id/mensajes"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="mensajes" />
+            android:layout_height="match_parent" />
 
     </LinearLayout>
 

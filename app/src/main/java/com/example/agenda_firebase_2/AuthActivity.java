@@ -23,7 +23,6 @@ import java.util.Map;
 
 public class AuthActivity extends AppCompatActivity {
 
-    private static final String TAG = "hola" ;
     Button btn_signUp, btn_signIn;
     EditText email, password;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
