@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -39,6 +40,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 import tarea.Tarea;
@@ -49,11 +51,13 @@ public class AgendaActivity extends AppCompatActivity {
     private List<Tarea> tareaList= new ArrayList<Tarea>();
     ArrayAdapter<Tarea> arrayTarea;
 
+
     EditText task, date, time;
-    Button logout, send;
+    Button logout, send, update, delete;
     TextView user;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     ListView tareas;
+    Tarea taskSelected;
 
 
     @Override
@@ -85,6 +89,36 @@ public class AgendaActivity extends AppCompatActivity {
             }
         });
 
+        getTasks(correo);
+
+        tareas.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                taskSelected = (Tarea) parent.getItemAtPosition(position);
+                task.setText(taskSelected.getTask());
+                date.setText(taskSelected.getDate());
+                time.setText(taskSelected.getTime());
+                user.setText(taskSelected.getUid());
+
+            }
+        });
+
+        update = findViewById(R.id.btn_update);
+        update.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                updateTask(correo);
+            }
+        });
+
+        delete = findViewById(R.id.btn_delete);
+        delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                deleteTask();
+            }
+        });
+
         logout = findViewById(R.id.btn_logOut);
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,10 +127,6 @@ public class AgendaActivity extends AppCompatActivity {
                 onBackPressed();
             }
         });
-
-        getTasks(correo);
-
-
     }
 
     private void setup(String email){
@@ -106,28 +136,74 @@ public class AgendaActivity extends AppCompatActivity {
     }
 
     private void addTask(String addTask, String email, String addDate, String addTime){
-        Map<String, Object> tasks = new HashMap<>();
-        tasks.put("from", email);
-        tasks.put("task", addTask);
-        tasks.put("date", addDate);
-        tasks.put("time", addTime);
+        Tarea t = new Tarea();
+        t.setUid(UUID.randomUUID().toString());
+        t.setTask(addTask);
+        t.setFrom(email);
+        t.setDate(addDate);
+        t.setTime(addTime);
 
         db.collection("tasks")
-                .add(tasks)
-                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+            .add(t)
+            .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                @Override
+                public void onSuccess(DocumentReference documentReference) {
+                   task.setText("");
+                   date.setText("");
+                   time.setText("");
+                }
+            });
+    }
+
+    private  void updateTask (String email){
+        String newID = taskSelected.getUid();
+
+        db.collection("tasks")
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
-                    public void onSuccess(DocumentReference documentReference) {
-                       task.setText("");
-                       date.setText("");
-                       time.setText("");
+                    public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                        for (DocumentSnapshot document: value.getDocuments()){
+                            Tarea t = document.toObject(Tarea.class);
+                            if(newID.equals(t.getUid())){
+                                Tarea t1 = new Tarea();
+                                t1.setUid(taskSelected.getUid());
+                                t1.setTask(task.getText().toString().trim());
+                                t1.setDate(date.getText().toString().trim());
+                                t1.setTime(time.getText().toString().trim());
+                                t1.setFrom(email);
+
+                                db.collection("tasks").document(document.getId()).update("date", t1.getDate());
+                                db.collection("tasks").document(document.getId()).update("from", t1.getFrom());
+                                db.collection("tasks").document(document.getId()).update("task", t1.getTask());
+                                db.collection("tasks").document(document.getId()).update("time", t1.getTime());
+                                db.collection("tasks").document(document.getId()).update("uid", t1.getUid());
+                            }
+                        }
                     }
                 });
+    }
+
+    private void deleteTask(){
+        String newID = taskSelected.getUid();
+
+        db.collection("tasks")
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                        for (DocumentSnapshot document: value.getDocuments()){
+                            Tarea t = document.toObject(Tarea.class);
+                            if(newID.equals(t.getUid())){
+                                db.collection("tasks").document(document.getId()).delete();
+                            }
+                        }
+                    }
+                });
+
     }
 
     private void getTasks(String email){
         db.collection("tasks")
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
-                    @RequiresApi(api = Build.VERSION_CODES.N)
                     @Override
                     public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
                         tareaList.clear();
@@ -135,13 +211,14 @@ public class AgendaActivity extends AppCompatActivity {
                             Tarea t = document.toObject(Tarea.class);
                             if (email.equals(t.getFrom())){
                                 tareaList.add(t);
+
                             }
                             arrayTarea = new ArrayAdapter<Tarea>(AgendaActivity.this, android.R.layout.simple_list_item_1, tareaList);
+
                             tareas.setAdapter(arrayTarea);
                         }
                     }
                 });
-
     }
 
 }
