@@ -24,5 +24,8 @@ Video de Manual Técnico y de Uso en el siguiente enlace:
 - Interfaces de la Aplicación.
 
 - Explicación de los metodos implementados
+  
+  - Librerías de uso (Véase https://github.com/EstebanRios99/prueba-android/blob/master/Capturas/Librerias_Agenda.JPG): ![Screenshot](https://github.com/EstebanRios99/prueba-android/blob/master/Capturas/Librerias_Agenda.JPG)
+  
 
 
