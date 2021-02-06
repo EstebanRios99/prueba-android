@@ -28,6 +28,7 @@ Video de Manual Técnico y de Uso en el siguiente enlace:
   - Librerías de uso 
     ![Librerías](https://github.com/EstebanRios99/prueba-android/blob/master/Capturas/Librerias_Agenda.JPG): 
     El archivo muestra todas las dependencias necesarias para realizar el CRUD respectivo. Primero se llaman a los widgets que son elementos de la interfaz con la que se interacturan y los más importantes el servicio de google que nos conecta al Firestore de Firebase. Y un elemento de java que funcionara como array para almacenar los datos.
+    
   - Variables de la Agenda 
     ![Viariables](https://github.com/EstebanRios99/prueba-android/blob/master/Capturas/Variables_Agenda.JPG)
     Las variables que nacen a partir de la llamada de las liberias de la imagen anterior, y estás ayudan a interactuar ya sea para enviar o capturar datos con los botones, cajas de textos y elementos externos como el Firestore.
@@ -44,7 +45,7 @@ Video de Manual Técnico y de Uso en el siguiente enlace:
     
   - Método Registro 
     ![Registro](https://github.com/EstebanRios99/prueba-android/blob/master/Capturas/Metodo_Registrar.JPG)
-    Desde un proceso privado y void, se inicia cuando se interactua con el botón registro el cua aloja un método OnClick donde se llama a las variables email y password que primero validan que los campos (text) esten llenos y que en la interfaz ya se controla que el tipo de texto que se ingresa. Si el caso se cumple se llama al método externo de FirebaseAuth que se los conoce como ~createUserEmailAndPassword~ y donde van los 2 parámetros que se tomaron inicialmente en las variales email y password respectivamente.
+    Desde un proceso privado y void, se inicia cuando se interactua con el botón registro el cua aloja un método OnClick donde se llama a las variables email y password que primero validan que los campos (text) esten llenos y que en la interfaz ya se controla que el tipo de texto que se ingresa. Si el caso se cumple se llama al método externo de FirebaseAuth que se los conoce como _createUserEmailAndPassword_ y donde van los 2 parámetros que se tomaron inicialmente en las variales email y password respectivamente.
     Finalizado este proceso se emite un método OnComplete el cual toma una valor booleano del registro y si es verdadero, captuta el Uid del usuario y el correo el cual se envía a la colección de "users", con los datos capturados al momento de registro. En el caso que no se complete el registro se emite una alerta.
     
   - Método de alerta y redirección 
