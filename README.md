@@ -25,11 +25,11 @@ Video de Manual Técnico y de Uso en el siguiente enlace:
   
   La interfaz del Inicio de Sesión
   
-  ![Interfaz1](https://github.com/EstebanRios99/prueba-android/blob/master/Capturas/Interfaz_Inicio%20Sesión.png)
+  ![Interfaz1]()
    
   La interfaz para crear, actualizar y eliminar Tareas
   
-  ![Interfaz2](https://github.com/EstebanRios99/prueba-android/blob/master/Capturas/Interfaz_Tareas.png)
+  ![Interfaz2]()
   
 - Explicación de los metodos implementados
   
