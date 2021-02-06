@@ -110,7 +110,7 @@ Video de Manual Técnico y de Uso en el siguiente enlace:
     
   - Eliminar tareas  
   
-    ![DeleteTask](https://github.com/EstebanRios99/prueba-android/tree/master/Capturas)  
+    ![DeleteTask](https://github.com/EstebanRios99/prueba-android/tree/master/Capturas/Metodo_Eliminar_Tarea.JPG)  
     
     Primero para identificar la tarea se debe usar el UUID y se accede a la colección "tasks" con un metodo onEvent que tiene dos parámetros que ingresan los valores de una consulta que hay en la colección. Se obtiene los documentos de la colección, y se reccorre cada uno de estos. Con el UUID se hace una comparación con cada documento y al momento de obtener el documento completo se llama al metodo _delete()_ para borrar la coleccion.
     
