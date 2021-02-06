@@ -17,7 +17,7 @@ El proyecto debe constar de:
 - Actualizar tarea
 - Eliminar tarea
 
-Video de Manual Técnico y de Uso en el siguiente enlace:
+Video de Manual Técnico y de Uso en el siguiente enlace: [Enlace del video](https://youtu.be/Fjem6VDii6M)
 
 ## Desarrollo de la aplicación
 ***
